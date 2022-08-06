@@ -18,12 +18,12 @@ public class EmployeeDAO {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
       //try with resources-> it will close automatically. You dont have handle finally block
-        try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/julyfsd?useSSL=false", "root", "root");
+        try (Connection connection = DriverManager.getConnection
+        		("jdbc:mysql://localhost:3306/julyfsd", "root", "#Spirit000");
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            preparedStatement.setInt(1, 1);
+            preparedStatement.setInt(1, 2);
             preparedStatement.setString(2, employee.getFirstName());
             preparedStatement.setString(3, employee.getLastName());
             preparedStatement.setString(4, employee.getUsername());
@@ -57,4 +57,54 @@ public class EmployeeDAO {
             }
         }
     }
+    
+    //selectfrom
+    
+    //delete
+    public static int deleteEmployee(int id) throws SQLException, ClassNotFoundException{
+    	int x = 0;
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+        //try with resources-> it will close automatically. You dont have handle finally block
+          try (Connection connection = DriverManager.getConnection
+          		("jdbc:mysql://localhost:3306/julyfsd", "root", "#Spirit000");
+    	PreparedStatement pst=connection.prepareStatement("delete from employee where id=?")){
+    		pst.setInt(1, id);
+    		x = pst.executeUpdate();
+    		return x;
+    	}catch(Exception e) {
+    		System.out.println(e);
+    	}
+    	return x;
+    }
+   
+    //update
+    public static int updateEmployee(int id,
+    String firstName,
+    String lastName,
+    String username,
+    String password,
+    String address,
+    String contact) throws SQLException, ClassNotFoundException{
+    	int y = 0;
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+        //try with resources-> it will close automatically. You dont have handle finally block
+          try (Connection connection = DriverManager.getConnection
+          		("jdbc:mysql://localhost:3306/julyfsd", "root", "#Spirit000");
+    	PreparedStatement Upst=connection.prepareStatement("update from employee where id=?, first_name = ?"
+    			+ "last_name = ?, username = ?, password = ?, address = ?, contacts = ?")){
+    		Upst.setInt(1, id);
+    		Upst.setString(2, firstName);
+    		Upst.setString(3, lastName);
+    		Upst.setString(4, username);
+    		Upst.setString(5, password);
+    		Upst.setString(6, address);
+    		Upst.setString(7, contact);
+    		
+    		y = Upst.executeUpdate();
+    	}catch(Exception e) {
+    		System.out.println(e);
+    	}
+    	return y;
+    }
+    
 }

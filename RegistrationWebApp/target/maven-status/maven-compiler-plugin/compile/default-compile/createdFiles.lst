@@ -1,2 +1,3 @@
-com\saran\controller\LoginController.class
-com\saran\model\User.class
+com\saran\dao\EmployeeDAO.class
+com\saran\model\Employee.class
+com\saran\controller\EmployeeController.class
